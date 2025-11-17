@@ -9,6 +9,7 @@ on:
 env:
   HOSTINFO: ${{ vars.HOSTINFO }}
   PASSWORD: ${{ secrets.PASSWORD }}
+  TG_JSON: ${{ vars.TG_JSON }}
 
 jobs:  
   login:  
