@@ -11,16 +11,16 @@ async function delayTime(ms) {
 
 (async () => {
   // 读取 accounts.json 中的 JSON 字符串
-  const accountsJson = fs.readFileSync('accounts.json', 'utf-8');
-  const accounts = JSON.parse(accountsJson);
+  const host = fs.readFileSync('hostinfo', 'utf-8');
+  const [username,panel]=host.split('@');
+  const password = fs.readFileSync('password', 'utf-8');;
 
-  for (const account of accounts) {
-    const { username, password, panelnum } = account;
-
+    // const { username, password, panelnum } = account;
+  
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
-    let url = `https://panel${panelnum}.serv00.com/login/?next=/`;
+    let url = `https://${panel}/login/?next=/`;
 
     try {
       // 修改网址为新的登录页面
@@ -38,7 +38,7 @@ async function delayTime(ms) {
       await page.type('#id_password', password);
 
       // 提交登录表单
-      const loginButton = await page.$('#submit');
+      const loginButton = await page.$('button[type=submit]');
       if (loginButton) {
         await loginButton.click();
       } else {
@@ -73,7 +73,6 @@ async function delayTime(ms) {
       const delay = Math.floor(Math.random() * 8000) + 1000; // 随机延时1秒到8秒之间
       await delayTime(delay);
     }
-  }
 
   console.log('所有账号登录完成！');
 })();
