@@ -12,7 +12,7 @@ async function delayTime(ms) {
 (async () => {
   // 读取 accounts.json 中的 JSON 字符串
   const host = fs.readFileSync('hostinfo', 'utf-8');
-  const [username,panel]=host.split('@');
+  const [username,hostname]=host.split('@');
   const password = fs.readFileSync('password', 'utf-8');;
 
     // const { username, password, panelnum } = account;
@@ -20,7 +20,7 @@ async function delayTime(ms) {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
-    let url = `https://${panel}/login/?next=/`;
+    let url = `https://panel${hostname.slice(1)}/login/?next=/`;
 
     try {
       // 修改网址为新的登录页面
