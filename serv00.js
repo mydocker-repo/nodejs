@@ -62,7 +62,7 @@ async function account_login(account) {
         await page.type('input[name="password"]', password, { delay: 200 });
 
         // 点击登录按钮
-        const submitBtn=await page.$('button[type="submit"]')
+        const submitBtn=await page.$('.login-form__button button[type=submit]')
         await submitBtn.click()
             // page.click('button[type="submit"]', { delay: 500 }) // 点击登录按钮
         await  page.waitForNavigation({ waitUntil: 'networkidle2' }); // 等待导航完成
