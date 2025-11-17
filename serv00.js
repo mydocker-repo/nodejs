@@ -190,4 +190,4 @@ async function main(accout) {
     ]);
 }
 
-await  main(accout);
+main(accout);
