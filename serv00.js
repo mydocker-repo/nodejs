@@ -57,7 +57,7 @@ async function account_login(account) {
     await page.setUserAgent(customUA);
     try {
         // 导航到登录页面
-        await page.goto(`https://{panel$}/login/?next=/`, {
+        await page.goto(`https://${panel}/login/?next=/`, {
             waitUntil: 'networkidle2', // 等待网络空闲
             timeout: 60000 // 超时时间设置为60秒
         });
