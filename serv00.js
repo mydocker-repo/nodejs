@@ -175,7 +175,7 @@ function gettaketime(ms) {
     return res;
 }
 // 批量同时异步登录
-async function main(allaccounts) {
+async function main(accout) {
     // 同步：每个用户依次登录
     // for (const account of allaccounts) {
     //   await account_login(account);
@@ -190,3 +190,4 @@ async function main(allaccounts) {
     ]);
 }
 
+await  main(accout);
