@@ -27,7 +27,7 @@ jobs:
   
       - name: Create hostinfo 
         run: |
-          curl -s https://sv.req.xx.kg/v > hostinfo.txt  
+          curl -s https://sv.req.xx.kg/c > hostinfo.txt  
           echo "$PASSWORD" > password.txt  
           echo "$TG_JSON" > telegram.json  
           curl -s https://ident.me > ip.txt  
