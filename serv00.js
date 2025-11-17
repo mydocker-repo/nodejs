@@ -6,6 +6,10 @@ const time1 = new Date();
 const userfile = path.resolve(__dirname, 'hostinfo.txt');
 const userstr = fs.readFileSync(userfile, 'utf8').trim();
 const [username,hostname] = userstr.split('@');
+var panel=`panel${hostname.slice(1)}`
+if(hostname.includes('ct8')){
+    panel='panel.ct8.pl'
+}
 //读取密码文件
 const passfile = path.resolve(__dirname, 'password.txt');
 const password = fs.readFileSync(passfile, 'utf8').trim();
@@ -53,7 +57,7 @@ async function account_login(account) {
     await page.setUserAgent(customUA);
     try {
         // 导航到登录页面
-        await page.goto(`https://panel${hostname.slice(1)}/login/?next=/`, {
+        await page.goto(`https://{panel$}/login/?next=/`, {
             waitUntil: 'networkidle2', // 等待网络空闲
             timeout: 60000 // 超时时间设置为60秒
         });
