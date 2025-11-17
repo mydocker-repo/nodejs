@@ -3,14 +3,16 @@ const path = require('path');
 const fs = require('fs');
 const time1 = new Date();
 //读取用户列表文件txt
-const userfile = path.resolve(__dirname, 'hostinfo');
+const userfile = path.resolve(__dirname, 'hostinfo.txt');
 const userstr = fs.readFileSync(userfile, 'utf8').trim();
 const [username,hostname] = userstr.split('@');
 //读取密码文件
-const passfile = path.resolve(__dirname, 'password');
+const passfile = path.resolve(__dirname, 'password.txt');
 const password = fs.readFileSync(passfile, 'utf8').trim();
-const ip=fs.readFileSync(ip, 'utf8').trim();
-console.log(username,hostname);
+
+const ipfile = path.resolve(__dirname, 'ip.txt');
+const ip=fs.readFileSync(ipfile, 'utf8').trim();
+console.log(username,hostname,ip);
 const account = {
     username,
     hostname,
