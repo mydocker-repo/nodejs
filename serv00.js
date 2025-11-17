@@ -64,8 +64,12 @@ async function account_login(account) {
         // 点击登录按钮
         await Promise.all([
             page.waitForNavigation({ waitUntil: 'networkidle2' }), // 等待导航完成
-            page.click('button[type="submit"]', { delay: 500 }) // 点击登录按钮
+            page.waitForSelector('button[type="submit"]', { visible: true });
         ]);
+        const submitBtn=await page.$('button[type="submit"]')
+        await submitBtn.click()
+            // page.click('button[type="submit"]', { delay: 500 }) // 点击登录按钮
+        page.waitForNavigation({ waitUntil: 'networkidle2' })
         // 等待登录完成
         await page.waitForSelector(`a[href="/logout/"]`, { visible: true });
         let mes = `账号: ${username}@${hostname} 登录成功！\n`;
