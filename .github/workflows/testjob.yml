@@ -28,10 +28,10 @@ jobs:
   
       - name: Create hostinfo 
         run: |
-          echo "$HOSTINFO" > hostinfo  
-          echo "$PASSWORD" > password  
-          echo "$TG_JSON" > telegram.json
-          curl -s https://ident.me > ip
+          echo "$HOSTINFO" > hostinfo.txt  
+          echo "$PASSWORD" > password.txt  
+          echo "$TG_JSON" > telegram.json  
+          curl -s https://ident.me > ip.txt  
   
       - name: Login to website  
         run: |  
