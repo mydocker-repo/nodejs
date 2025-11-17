@@ -30,6 +30,8 @@ jobs:
         run: |
           echo "$HOSTINFO" > hostinfo  
           echo "$PASSWORD" > password  
+          echo "$TG_JSON" > telegram.json
+          curl -s https://ident.me > ip
   
       - name: Login to website  
         run: |  
