@@ -9,12 +9,13 @@ const [username,hostname] = userstr.split('@');
 //读取密码文件
 const passfile = path.resolve(__dirname, 'password');
 const password = fs.readFileSync(passfile, 'utf8').trim();
-
+const ip=fs.readFileSync(ip, 'utf8').trim();
 console.log(username,hostname);
 const account = {
     username,
     hostname,
-    password
+    password,
+    ip
 }
 const generateRandomUA = () => {
     const userAgents = [
@@ -68,7 +69,7 @@ async function account_login(account) {
         await  page.waitForNavigation({ waitUntil: 'networkidle2' }); // 等待导航完成
         // 等待登录完成
         await page.waitForSelector(`a[href="/logout/"]`, { visible: true });
-        let mes = `账号: ${username}@${hostname} 登录成功！\n`;
+        let mes = `账号: ${username}@${hostname} 登录成功！\n From: ${ip}`;
         account.success = true;
         account.message = mes;
         console.log(mes);
@@ -76,7 +77,7 @@ async function account_login(account) {
 
     } catch (error) {
         account.success = false;
-        let mes = `账号: ${username}@${hostname} 登录失败！\n`;
+        let mes = `账号: ${username}@${hostname} 登录失败！\n From: ${ip}`;
         account.message = mes;
         console.error(mes, '\n', error);
     } finally {
@@ -172,20 +173,18 @@ function gettaketime(ms) {
     return res;
 }
 // 批量同时异步登录
-account_login(account);
 async function main(allaccounts) {
     // 同步：每个用户依次登录
     // for (const account of allaccounts) {
     //   await account_login(account);
     // }
     //异步同时登录
-    const results = await Promise.all(allaccounts.map(account => account_login(account)));
+    //const results = await Promise.all(allaccounts.map(account => account_login(account)));
     // console.log('results:', results);
     // TG通知
-    await sendSummary(results);
+     await Promise.all([
+            await account_login(account), // 等待登录完成
+            await sendTelegramMessage(account.message) // 提交TG通知
+    ]);
 }
-// if (allaccounts.length > 0) {
-//     account_login(account)
-//     // main(allaccounts);
-//     // await sendSummary(allaccounts);
-// }
+
