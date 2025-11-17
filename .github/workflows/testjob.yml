@@ -7,7 +7,8 @@ on:
     - cron: '55 2 */2 * *'
 
 env:
-  ACCOUNTS_JSON: ${{ secrets.ACCOUNTS_JSON }}
+  HOSTINFO: ${{ vars.HOSTINFO }}
+  PASSWORD: ${{ secrets.PASSWORD }}
 
 jobs:  
   login:  
@@ -25,8 +26,10 @@ jobs:
       - name: Install dependencies  
         run: npm install puppeteer  
   
-      - name: Create accounts.json  
-        run: echo "$ACCOUNTS_JSON" > accounts.json  
+      - name: Create hostinfo 
+        run: |
+          echo "$HOSTINFO" > hostinfo  
+          echo "$PASSWORD" > password  
   
       - name: Login to website  
         run: |  
